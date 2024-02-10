@@ -35,4 +35,12 @@ export const GlobalStyle = createGlobalStyle`
   input:focus {
     outline: none;
   }
+  
+  table {
+    text-align: center;
+  }
+  
+  table td, table th {
+    border-bottom: 1px solid black;
+  }
 `

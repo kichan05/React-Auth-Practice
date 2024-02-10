@@ -1,30 +1,66 @@
 import styled from "styled-components";
-import {UI_ACTION_TYPE, useUiDispatch, useUiState} from "../context/UiReducer";
+import {useUiDispatch, useUiState} from "../context/UiReducer";
 import Button from "../component/Button";
 import {PageBasicStyle} from "../style/BasicStyle";
-import {useState} from "react";
-import {LuImagePlus} from "react-icons/lu";
-import {IconButton} from "../component/IconButton";
+import {useEffect, useState} from "react";
+import {getUsers} from "../auth/auth"
+import Input from "../component/Input";
 
 const PageStyle = styled.div`
   ${PageBasicStyle};
   
-  background-color: #f00;
+  .content {
+    
+  }
   
-  & > .content {
-    background-color: #0f0;
+  table {
+    width: 100%;
+    
+    font-size: 16px;
+  }
+  
+  table th, table td {
+    padding: 12px 8px;
+  }
+  
+  table thead tr {
+    color: ${p => p.theme.color.Gray2};
+    background-color: ${p => p.theme.color.Gray9};
   }
 `
 
 const Page = () => {
   const uiState = useUiState()
   const uiDispatch = useUiDispatch()
-  const [count, setCount] = useState(0)
+
+  const [userList, setUserList] = useState([])
+
+  useEffect(() => {
+    setUserList(getUsers())
+  }, [])
 
   return (
     <PageStyle>
       <div className="content">
-        <Button onClick={() => uiDispatch({type:UI_ACTION_TYPE.modal_toggle})}>모달 토글</Button>
+        <table border={1}>
+          <thead>
+            <tr>
+              <th style={{width:"5%"}}>ID</th>
+              <th style={{width:"75%"}}>EMAIL</th>
+              <th style={{width:"20%"}}>PASSWORD</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userList.map(user => (
+              <tr>
+                <td>{user.id}</td>
+                <td>{user.email}</td>
+                <td>{user.password}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
       </div>
     </PageStyle>
   )

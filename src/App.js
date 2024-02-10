@@ -5,9 +5,10 @@ import {Theme} from "./style/theme";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 import UiSection from "./section/UiSection";
-import React from "react";
+import React, {useState} from "react";
 import {UiContextProvider} from "./context/UiReducer";
 import Page from "./page/Page";
+import SignUpPage from "./page/SignUpPage";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
 
         <UiContextProvider>
           <Header/>
-          <Page/>
+          {/*<Page/>*/}
+          <SignUpPage/>
           <Footer/>
           <UiSection/>
         </UiContextProvider>

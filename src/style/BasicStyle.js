@@ -8,5 +8,6 @@ export const PageBasicStyle = css`
     max-width: ${({theme}) => theme.size.mobileMaxWidth}px;
 
     margin: 0 auto;
+    padding: 12px;
   }
 `

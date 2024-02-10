@@ -9,11 +9,6 @@ import React from "react";
 import {UiContextProvider} from "./context/UiReducer";
 import Page from "./page/Page";
 
-const Test = styled.div`
-  height: var(--footer-height);
-  background-color: #f00;
-`
-
 function App() {
   return (
     <div className="App">

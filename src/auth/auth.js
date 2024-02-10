@@ -8,7 +8,7 @@ export function getUsers() {
   return userTable.map(i => i)
 }
 
-export function signUp(email, password){
+export async function signUp(email, password){
   const user = {
     id: userTable.length,
     email, password
@@ -19,7 +19,7 @@ export function signUp(email, password){
   return user
 }
 
-export function signIn(email, password) {
+export async function signIn(email, password) {
   const user = userTable.filter(u => u.email === email && u.password === password)
   if(user.length === 0)
     return null

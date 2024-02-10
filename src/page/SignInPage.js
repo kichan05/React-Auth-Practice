@@ -43,7 +43,7 @@ const SignInPage = () => {
     setInputValues({...inputValues, [name] : value})
   }
 
-  const signUpSubmit = (e) => {
+  const signUpSubmit = async (e) => {
     e.preventDefault()
 
     const {email, password} = inputValues
@@ -53,10 +53,11 @@ const SignInPage = () => {
       return
     }
 
-    const result = signIn(email, password)
+    const result = await signIn(email, password)
     authDispatch({type: AUTH_ACTION_TYPE.login, user: result})
     navigate("/")
   }
+
   return (
     <SignInPageStyle>
       <div className="content">

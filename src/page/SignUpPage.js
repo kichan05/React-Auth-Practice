@@ -44,7 +44,7 @@ const SignUpPage = () => {
     setInputValues({...inputValues, [name] : value})
   }
 
-  const signUpSubmit = (e) => {
+  const signUpSubmit = async (e) => {
     e.preventDefault()
 
     const {email, password, passwordRe} = inputValues
@@ -54,7 +54,7 @@ const SignUpPage = () => {
       return
     }
 
-    const result = signUp(email, password)
+    const result = await signUp(email, password)
     authDispatch({type: AUTH_ACTION_TYPE.login, user: result})
     navigate("/")
   }

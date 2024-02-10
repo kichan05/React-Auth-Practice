@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {useEffect, useRef} from "react";
+import {Link} from "react-router-dom";
 
 const HeaderStyle = styled.header`
   width: 100%;
@@ -16,10 +17,15 @@ const HeaderStyle = styled.header`
 
     padding: 20px 16px;
     margin: 0 auto;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
-  & h1 {
+  .title {
     font-size: 28px;
+    font-weight: bold;
   }
 `
 
@@ -27,13 +33,17 @@ const Header = () => {
   const headerElement = useRef()
   useEffect(() => {
     const height = headerElement.current.clientHeight
-    console.log(height)
     document.documentElement.style.setProperty("--header-height", `${height}px`)
   })
+
   return (
     <HeaderStyle ref={headerElement}>
       <div>
-        <h1>헤더</h1>
+        <Link to={"/"}>
+          <span className={"title"}>헤더</span>
+        </Link>
+
+        <Link to={"/signUp"}>회원가입</Link>
       </div>
     </HeaderStyle>
   )

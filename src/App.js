@@ -9,6 +9,7 @@ import React, {useState} from "react";
 import {UiContextProvider} from "./context/UiReducer";
 import Page from "./page/Page";
 import SignUpPage from "./page/SignUpPage";
+import {Route, Routes} from "react-router-dom";
 
 function App() {
   return (
@@ -19,8 +20,12 @@ function App() {
 
         <UiContextProvider>
           <Header/>
-          {/*<Page/>*/}
-          <SignUpPage/>
+
+          <Routes>
+            <Route path="/" element={<Page/>}/>
+            <Route path="/signUp" element={<SignUpPage/>}/>
+          </Routes>
+
           <Footer/>
           <UiSection/>
         </UiContextProvider>

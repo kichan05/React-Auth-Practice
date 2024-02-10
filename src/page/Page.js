@@ -5,6 +5,7 @@ import {PageBasicStyle} from "../style/BasicStyle";
 import {useEffect, useState} from "react";
 import {getUsers} from "../auth/auth"
 import Input from "../component/Input";
+import {useAuthState} from "../context/AuthReducer";
 
 const PageStyle = styled.div`
   ${PageBasicStyle};
@@ -27,11 +28,16 @@ const PageStyle = styled.div`
     color: ${p => p.theme.color.Gray2};
     background-color: ${p => p.theme.color.Gray9};
   }
+  
+  table .my {
+    background-color: ${p => p.theme.color.Indigo1};
+  }
 `
 
 const Page = () => {
   const uiState = useUiState()
   const uiDispatch = useUiDispatch()
+  const authState = useAuthState()
 
   const [userList, setUserList] = useState([])
 
@@ -45,14 +51,14 @@ const Page = () => {
         <table border={1}>
           <thead>
             <tr>
-              <th style={{width:"5%"}}>ID</th>
-              <th style={{width:"75%"}}>EMAIL</th>
+              <th style={{width:"10%"}}>UUID</th>
+              <th style={{width:"70%"}}>EMAIL</th>
               <th style={{width:"20%"}}>PASSWORD</th>
             </tr>
           </thead>
           <tbody>
             {userList.map(user => (
-              <tr>
+              <tr className={user.id === authState.user?.id && "my"}>
                 <td>{user.id}</td>
                 <td>{user.email}</td>
                 <td>{user.password}</td>
@@ -60,7 +66,6 @@ const Page = () => {
             ))}
           </tbody>
         </table>
-
       </div>
     </PageStyle>
   )

@@ -10,6 +10,8 @@ import {UiContextProvider} from "./context/UiReducer";
 import Page from "./page/Page";
 import SignUpPage from "./page/SignUpPage";
 import {Route, Routes} from "react-router-dom";
+import {AuthContextProvider} from "./context/AuthReducer";
+import SignInPage from "./page/SignInPage";
 
 function App() {
   return (
@@ -19,15 +21,16 @@ function App() {
         <Resize/>
 
         <UiContextProvider>
-          <Header/>
-
-          <Routes>
-            <Route path="/" element={<Page/>}/>
-            <Route path="/signUp" element={<SignUpPage/>}/>
-          </Routes>
-
-          <Footer/>
-          <UiSection/>
+          <AuthContextProvider>
+            <Header/>
+            <Routes>
+              <Route path="/" element={<Page/>}/>
+              <Route path="/signIn" element={<SignInPage/>}/>
+              <Route path="/signUp" element={<SignUpPage/>}/>
+            </Routes>
+            <Footer/>
+            <UiSection/>
+          </AuthContextProvider>
         </UiContextProvider>
 
       </ThemeProvider>

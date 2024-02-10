@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {useEffect, useRef} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {AUTH_ACTION_TYPE, useAuthDispatch, useAuthState} from "../context/AuthReducer";
 
 const HeaderStyle = styled.header`
   width: 100%;
@@ -24,26 +25,45 @@ const HeaderStyle = styled.header`
   }
   
   .title {
-    font-size: 28px;
+    color: ${p => p.theme.color.HeechanBlue};
+    font-size: 20px;
     font-weight: bold;
   }
 `
 
 const Header = () => {
   const headerElement = useRef()
+  const authState = useAuthState()
+  const authDispatch = useAuthDispatch()
+  const navigate = useNavigate()
+
   useEffect(() => {
     const height = headerElement.current.clientHeight
     document.documentElement.style.setProperty("--header-height", `${height}px`)
   })
 
+  const logout = () => {
+    authDispatch({type: AUTH_ACTION_TYPE.logout})
+
+    navigate("/")
+  }
+
   return (
     <HeaderStyle ref={headerElement}>
       <div>
         <Link to={"/"}>
-          <span className={"title"}>헤더</span>
+          <span className={"title"}>로고</span>
         </Link>
 
-        <Link to={"/signUp"}>회원가입</Link>
+        {
+          authState.user == null ?
+            <span>
+              <Link to={"/signUp"}>회원가입</Link>
+              <span> </span>
+              <Link to={"/signIn"}>로그인</Link>
+            </span> :
+            <span onClick={logout}>로그아웃</span>
+        }
       </div>
     </HeaderStyle>
   )

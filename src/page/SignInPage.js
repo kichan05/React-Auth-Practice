@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import {PageBasicStyle} from "../style/BasicStyle";
 import {useState} from "react";
-import {signUp} from "../auth/auth";
+import {signIn, signUp} from "../auth/auth";
 import Input from "../component/Input";
 import Button from "../component/Button";
 import {AUTH_ACTION_TYPE, useAuthDispatch} from "../context/AuthReducer";
 import {useNavigate} from "react-router-dom";
 
-const SignUpPageStyle = styled.div`
+const SignInPageStyle = styled.div`
   ${PageBasicStyle};
 
   .content {
@@ -30,14 +30,13 @@ const SignUpPageStyle = styled.div`
   }
 `
 
-const SignUpPage = () => {
+const SignInPage = () => {
   const authDispatch = useAuthDispatch()
   const navigate = useNavigate()
 
   const [inputValues, setInputValues] = useState({
     email: "",
     password: "",
-    passwordRe: ""
   })
   const inputChange = (e) => {
     const {name, value} = e.target
@@ -47,19 +46,19 @@ const SignUpPage = () => {
   const signUpSubmit = (e) => {
     e.preventDefault()
 
-    const {email, password, passwordRe} = inputValues
+    const {email, password} = inputValues
 
-    if(email.length === 0 || password.length === 0 || passwordRe.length === 0){
+    if(email.length === 0 || password.length === 0){
       alert("값을 입력하세요.")
       return
     }
 
-    const result = signUp(email, password)
+    const result = signIn(email, password)
     authDispatch({type: AUTH_ACTION_TYPE.login, user: result})
     navigate("/")
   }
   return (
-    <SignUpPageStyle>
+    <SignInPageStyle>
       <div className="content">
         <form onSubmit={signUpSubmit}>
           <Input
@@ -73,19 +72,11 @@ const SignUpPage = () => {
             value={inputValues["password"]}
             placeholder={"비밀번호"}
             name={"password"}/>
-          <Input
-            type={"password"}
-            onChange={inputChange}
-            value={inputValues["passwordRe"]}
-            placeholder={"비밀번호 확인"}
-            name={"passwordRe"}/>
-          <div className="button-wrap">
-            <Button>회원가입</Button>
-          </div>
+          <Button>로그인</Button>
         </form>
       </div>
-    </SignUpPageStyle>
+    </SignInPageStyle>
   )
 }
 
-export default SignUpPage
+export default SignInPage

@@ -18,3 +18,11 @@ export function signUp(email, password){
 
   return user
 }
+
+export function signIn(email, password) {
+  const user = userTable.filter(u => u.email === email && u.password === password)
+  if(user.length === 0)
+    return null
+  else
+    return user[0]
+}

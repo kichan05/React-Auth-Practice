@@ -40,7 +40,7 @@ const SignInPage = () => {
   })
   const inputChange = (e) => {
     const {name, value} = e.target
-    setInputValues({...inputValues, [name] : value})
+    setInputValues({...inputValues, [name]: value})
   }
 
   const signUpSubmit = async (e) => {
@@ -53,9 +53,14 @@ const SignInPage = () => {
       return
     }
 
-    const result = await signIn(email, password)
-    authDispatch({type: AUTH_ACTION_TYPE.login, user: result})
-    navigate("/")
+    try {
+      const result = await signIn(email, password)
+      authDispatch({type: AUTH_ACTION_TYPE.login, user: result})
+      navigate("/")
+    }
+    catch (e) {
+      alert("로그인 실패")
+    }
   }
 
   return (

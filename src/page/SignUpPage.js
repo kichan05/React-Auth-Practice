@@ -55,7 +55,8 @@ const SignUpPage = () => {
     }
 
     const result = await signUp(email, password)
-    authDispatch({type: AUTH_ACTION_TYPE.login, user: result})
+    localStorage.setItem("jwtToken", result.token)
+    authDispatch({type: AUTH_ACTION_TYPE.login, user: result.user})
     navigate("/")
   }
   return (

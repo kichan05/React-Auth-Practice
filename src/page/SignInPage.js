@@ -7,6 +7,9 @@ import Button from "../component/Button";
 import {AUTH_ACTION_TYPE, useAuthDispatch} from "../context/AuthReducer";
 import {useNavigate} from "react-router-dom";
 
+function saveJWTtoken(token) {
+}
+
 const SignInPageStyle = styled.div`
   ${PageBasicStyle};
 
@@ -55,7 +58,8 @@ const SignInPage = () => {
 
     try {
       const result = await signIn(email, password)
-      authDispatch({type: AUTH_ACTION_TYPE.login, user: result})
+      localStorage.setItem("jwtToken", result.token)
+      authDispatch({type: AUTH_ACTION_TYPE.login, user: result.user})
       navigate("/")
     }
     catch (e) {
